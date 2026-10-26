@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Etêmeros | Cultura, Arte e Programação Cultural em São Paulo</title>
+<meta name="description" content="Etêmeros é um coletivo cultural em São Paulo que cria exposições, oficinas, debates e festivais. Confira a programação, participe e conheça nossa história.">
+<meta property="og:title" content="Etêmeros | Cultura e Arte">
+<meta property="og:description" content="Onde a arte efêmera encontra o impacto eterno. Exposições, oficinas, debates e festivais em São Paulo.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#D45D2D">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --creme:#F5F1E9; --laranja-queimado:#D45D2D; --terracota:#A64B2A;
+        --marrom-profundo:#3E2723; --amarelo-mostarda:#D4A373; --off-white:#FAF9F6;
+        --surface:rgba(255,255,255,.78); --surface-solid:#fff; --muted:#795548;
+        --header-bg:rgba(245,241,233,.84); --shadow:0 18px 55px rgba(62,39,35,.12);
+        --shadow-soft:0 8px 28px rgba(62,39,35,.08); --radius:22px;
+        --transition:all .35s cubic-bezier(.2,.8,.2,1); --focus-ring:0 0 0 3px rgba(212,93,45,.35);
+    }
+
+    body.theme-copa {
+        --creme:#eef7f0; --off-white:#fff; --surface:#ffffffdc;
+        --laranja-queimado:#16864a; --terracota:#126c3d; --marrom-profundo:#123b29;
+        --amarelo-mostarda:#f4c542; --muted:#35634d; --header-bg:rgba(238,247,240,.9);
+    }
+    body.theme-setembro {
+        --creme:#fffbe8; --off-white:#fffef7; --surface:#ffffffdc;
+        --laranja-queimado:#d9a900; --terracota:#aa7e00; --marrom-profundo:#4d3e00;
+        --amarelo-mostarda:#f6c900; --muted:#766200; --header-bg:rgba(255,251,232,.9);
+    }
+    body.theme-junina {
+        --creme:#fff5df; --off-white:#fffaf0; --surface:#ffffffde;
+        --laranja-queimado:#c43d32; --terracota:#8f2d27; --marrom-profundo:#4a2b20;
+        --amarelo-mostarda:#e4a72c; --muted:#76503f; --header-bg:rgba(255,245,223,.9);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+        font-family:'Plus Jakarta Sans',sans-serif;color:var(--marrom-profundo);
+        background:
+            radial-gradient(circle at 10% 10%,rgba(212,163,115,.14),transparent 28%),
+            radial-gradient(circle at 90% 25%,rgba(212,93,45,.08),transparent 26%),var(--creme);
+        line-height:1.65;overflow-x:hidden;transition:background .5s,color .5s;
+    }
+    body:before{
+        content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+        background-image:radial-gradient(rgba(62,39,35,.035) 1px,transparent 1px);
+        background-size:22px 22px;
+    }
+    h1,h2,h3,.logo,.footer-logo{font-family:'Playfair Display',serif}
+    ::selection{background:var(--amarelo-mostarda);color:var(--marrom-profundo)}
+    ::-webkit-scrollbar{width:9px} ::-webkit-scrollbar-track{background:var(--creme)}
+    ::-webkit-scrollbar-thumb{background:var(--terracota);border-radius:99px}
+    a,button,input,select,summary{font-family:inherit}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{
+        outline:none;box-shadow:var(--focus-ring);border-radius:8px
+    }
+    .skip-link{
+        position:absolute;left:12px;top:-60px;background:var(--marrom-profundo);color:#fff;
+        padding:10px 16px;border-radius:10px;z-index:3000;transition:top .25s
+    }
+    .skip-link:focus{top:12px}
+
+    header{
+        position:fixed;top:0;left:0;width:100%;z-index:1000;background:var(--header-bg);
+        backdrop-filter:blur(18px);border-bottom:1px solid rgba(166,75,42,.1);transition:var(--transition)
+    }
+    header.scrolled{box-shadow:var(--shadow-soft)}
+    nav{max-width:1380px;margin:auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+    .logo{font-size:1.75rem;color:var(--terracota);text-decoration:none;letter-spacing:1.5px;font-weight:700;white-space:nowrap}
+    .nav-links{display:flex;gap:1.5rem;list-style:none;align-items:center}
+    .nav-links a{text-decoration:none;color:var(--marrom-profundo);font-weight:600;font-size:.9rem;position:relative;padding:.4rem 0;transition:var(--transition)}
+    .nav-links a:after{content:"";position:absolute;bottom:0;left:0;width:0;height:2px;background:var(--laranja-queimado);transition:var(--transition)}
+    .nav-links a:hover,.nav-links a.active{color:var(--laranja-queimado)}
+    .nav-links a:hover:after,.nav-links a.active:after{width:100%}
+    .nav-tools{display:flex;align-items:center;gap:.55rem}
+    .auth-buttons{display:flex;gap:.45rem}
+    .theme-select{
+        border:1px solid rgba(62,39,35,.14);background:var(--surface);color:var(--marrom-profundo);
+        padding:.65rem .75rem;border-radius:12px;font:600 .78rem 'Plus Jakarta Sans',sans-serif;outline:none;cursor:pointer
+    }
+    .hamburger{
+        display:none;width:42px;height:42px;border-radius:12px;border:1px solid rgba(62,39,35,.14);
+        background:var(--surface);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:5px
+    }
+    .hamburger span{display:block;width:20px;height:2px;background:var(--marrom-profundo);transition:var(--transition)}
+    .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+    .hamburger.open span:nth-child(2){opacity:0}
+    .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+    main{padding-top:80px}
+    section{
+        max-width:1240px;margin:0 auto;padding:86px 2rem;opacity:0;transform:translateY(28px);
+        transition:opacity .7s ease,transform .7s ease
+    }
+    section.visible{opacity:1;transform:none}.hidden{display:none!important}
+
+    .hero{
+        min-height:80vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+        text-align:center;padding:3rem 2rem;border-radius:32px;overflow:hidden;position:relative;
+        background:linear-gradient(135deg,rgba(245,241,233,.83),rgba(245,241,233,.55)),
+        url('https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?q=80&w=2000&auto=format&fit=crop');
+        background-size:cover;background-position:center;box-shadow:var(--shadow)
+    }
+    .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(62,39,35,.12))}
+    .hero>*{position:relative;z-index:1}
+    .eyebrow{
+        display:inline-flex;gap:.5rem;margin-bottom:1rem;padding:.45rem .8rem;border:1px solid rgba(62,39,35,.12);
+        border-radius:99px;background:rgba(255,255,255,.55);font-size:.76rem;font-weight:700;letter-spacing:.06em
+    }
+    .hero h1{
+        font-size:clamp(3rem,8vw,6.3rem);line-height:.98;margin-bottom:1.35rem;color:var(--marrom-profundo);
+        opacity:0;transform:translateY(22px);animation:reveal .9s forwards .1s
+    }
+    .hero p{
+        font-size:clamp(1rem,2vw,1.2rem);max-width:680px;color:var(--terracota);
+        background:rgba(245,241,233,.72);padding:12px 18px;border-radius:14px;opacity:0;animation:reveal .9s forwards .25s
+    }
+    .hero-actions{display:flex;gap:12px;margin-top:25px;flex-wrap:wrap;justify-content:center}
+    .stats-row{
+        display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px;width:100%;max-width:920px;
+        opacity:0;animation:reveal .9s forwards .4s
+    }
+    .stat{background:rgba(255,255,255,.6);border-radius:16px;padding:16px 10px}
+    .stat strong{display:block;font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3vw,2.1rem);color:var(--laranja-queimado)}
+    .stat span{font-size:.78rem;color:var(--muted)}
+    @keyframes reveal{to{opacity:1;transform:translateY(0)}}
+
+    .section-heading{max-width:720px}
+    .section-kicker{
+        color:var(--laranja-queimado);letter-spacing:.06em;font-size:.82rem;font-weight:800;margin-bottom:8px
+    }
+    .section-heading h2{font-size:clamp(2.2rem,5vw,3.3rem);margin-bottom:10px}
+    .section-heading>p{color:var(--muted)}
+
+    .grid-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px;margin-top:38px}
+    .card{
+        background:var(--surface);padding:34px;border-radius:var(--radius);box-shadow:var(--shadow-soft);
+        border:1px solid rgba(166,75,42,.08);transition:var(--transition);position:relative;overflow:hidden;backdrop-filter:blur(10px)
+    }
+    .card:before{
+        content:"";position:absolute;left:0;top:0;width:4px;height:100%;
+        background:linear-gradient(var(--amarelo-mostarda),var(--laranja-queimado));transition:var(--transition)
+    }
+    .card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:rgba(212,93,45,.3)}
+    .card:hover:before{width:7px}.card h3{margin-bottom:12px;color:var(--laranja-queimado);font-size:1.5rem}.card p{color:var(--muted)}
+
+    /* Filtros de eventos */
+    .filters{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:30px 0 8px}
+    .search-input{
+        flex:1 1 220px;border:1px solid rgba(62,39,35,.14);background:var(--surface-solid);padding:12px 16px;
+        border-radius:12px;font-size:.9rem;color:var(--marrom-profundo)
+    }
+    .chip{
+        border:1px solid rgba(62,39,35,.16);background:var(--surface-solid);color:var(--muted);padding:9px 15px;
+        border-radius:99px;font-size:.82rem;font-weight:600;cursor:pointer;transition:var(--transition)
+    }
+    .chip.active,.chip:hover{background:var(--laranja-queimado);color:#fff;border-color:var(--laranja-queimado)}
+    .toggle-past{display:flex;align-items:center;gap:8px;font-size:.83rem;color:var(--muted);margin:6px 0 10px;cursor:pointer}
+
+    .event-item{
+        background:var(--surface-solid);padding:22px 24px;margin-bottom:16px;border-radius:18px;
+        display:flex;justify-content:space-between;align-items:center;gap:20px;box-shadow:var(--shadow-soft);
+        border:1px solid rgba(62,39,35,.06);transition:var(--transition)
+    }
+    .event-item.past{opacity:.55}
+    .event-item:hover{transform:translateX(6px);border-color:var(--amarelo-mostarda);box-shadow:var(--shadow)}
+    .event-main{display:flex;gap:16px;align-items:flex-start;flex:1;min-width:0}
+    .event-info{flex:1;min-width:0}
+    .event-badge{
+        display:inline-block;font-size:.7rem;font-weight:700;color:var(--laranja-queimado);
+        border:1px solid rgba(212,93,45,.35);padding:2px 9px;border-radius:99px;margin-bottom:6px
+    }
+    .event-info h4{font-size:1.08rem;margin-bottom:3px}
+    .event-info span,.location-tag{color:var(--muted);font-size:.85rem}
+    .event-desc{color:var(--muted);font-size:.85rem;margin-top:4px}
+    .event-countdown{font-size:.78rem;font-weight:700;color:var(--terracota);margin-top:4px}
+    .event-actions{display:flex;flex-direction:column;gap:8px;flex-shrink:0}
+    .empty-state{text-align:center;padding:50px 20px;color:var(--muted)}
+
+    .btn{
+        padding:11px 19px;border-radius:12px;border:1px solid transparent;cursor:pointer;font-weight:700;
+        transition:var(--transition);font-size:.84rem;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+        white-space:nowrap;text-decoration:none
+    }
+    .btn-primary{background:var(--laranja-queimado);color:#fff;box-shadow:0 7px 18px rgba(166,75,42,.18)}
+    .btn-primary:hover{background:var(--terracota);transform:translateY(-2px)}
+    .btn-outline{background:transparent;border-color:var(--laranja-queimado);color:var(--laranja-queimado)}
+    .btn-outline:hover{background:var(--laranja-queimado);color:#fff}
+    .btn-delete{background:#fee2e2;color:#dc2626}.btn-delete:hover{background:#dc2626;color:#fff}
+    .btn-sm{padding:7px 12px;font-size:.75rem;border-radius:9px}
+
+    .admin-box{
+        background:linear-gradient(135deg,var(--marrom-profundo),#5b332a);color:var(--creme);padding:30px;
+        border-radius:24px;margin:30px 0 38px;box-shadow:0 20px 45px rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.08)
+    }
+    .admin-box h3{color:var(--amarelo-mostarda);margin-bottom:6px;font-size:1.45rem}
+    .admin-box .sub{opacity:.75;font-size:.82rem;margin-bottom:18px}
+    .form-group{display:grid;grid-template-columns:1fr 1fr .9fr .9fr auto;gap:12px}
+    .form-group.wide{grid-template-columns:1fr}
+    input,textarea,select.dark-select{
+        width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:12px 14px;
+        border-radius:11px;color:#fff;outline:none;transition:var(--transition);font:500 .86rem 'Plus Jakarta Sans',sans-serif;resize:vertical
+    }
+    select.dark-select option{color:#000}
+    input::placeholder,textarea::placeholder{color:rgba(255,255,255,.48)}
+    input:focus,textarea:focus{border-color:var(--amarelo-mostarda);background:rgba(255,255,255,.13)}
+    .admin-meta{margin-top:14px;font-size:.8rem;opacity:.75}
+
+    /* formulários claros (contato/newsletter) */
+    .light-form{display:grid;gap:14px;max-width:520px}
+    .light-form input,.light-form textarea{
+        background:var(--surface-solid);border:1px solid rgba(62,39,35,.16);color:var(--marrom-profundo)
+    }
+    .light-form input::placeholder,.light-form textarea::placeholder{color:var(--muted)}
+    .light-form input:focus,.light-form textarea:focus{border-color:var(--laranja-queimado);background:#fff}
+    .newsletter-box{
+        display:flex;gap:12px;flex-wrap:wrap;background:var(--surface);padding:34px;border-radius:var(--radius);
+        box-shadow:var(--shadow-soft);border:1px solid rgba(166,75,42,.08);margin-top:34px;align-items:center
+    }
+    .newsletter-box form{display:flex;gap:10px;flex:1;min-width:260px;flex-wrap:wrap}
+    .newsletter-box input{flex:1;min-width:200px}
+
+    /* Depoimentos */
+    .testi-card{background:var(--surface-solid);padding:28px;border-radius:18px;box-shadow:var(--shadow-soft);border:1px solid rgba(62,39,35,.06)}
+    .testi-card p{color:var(--marrom-profundo);font-size:1rem;margin-bottom:16px}
+    .testi-who{display:flex;align-items:center;gap:10px}
+    .testi-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(var(--amarelo-mostarda),var(--laranja-queimado));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+    .testi-who strong{display:block;font-size:.88rem}.testi-who span{font-size:.76rem;color:var(--muted)}
+
+    /* Parceiros */
+    .partners-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px}
+    .partner-pill{
+        padding:14px 22px;border:1px solid rgba(62,39,35,.14);border-radius:14px;background:var(--surface-solid);
+        color:var(--muted);font-weight:700;font-size:.86rem;letter-spacing:.02em
+    }
+
+    /* FAQ */
+    .faq-item{background:var(--surface-solid);border-radius:16px;margin-bottom:12px;box-shadow:var(--shadow-soft);border:1px solid rgba(62,39,35,.06);overflow:hidden}
+    .faq-item summary{padding:18px 22px;cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .faq-item summary::-webkit-details-marker{display:none}
+    .faq-item summary:after{content:"+";font-size:1.4rem;color:var(--laranja-queimado);transition:var(--transition)}
+    .faq-item[open] summary:after{transform:rotate(45deg)}
+    .faq-item .faq-a{padding:0 22px 20px;color:var(--muted)}
+
+    .contact-card{min-height:170px}
+    .toast{
+        position:fixed;bottom:24px;right:24px;padding:14px 20px;background:var(--marrom-profundo);color:#fff;
+        border-radius:14px;box-shadow:var(--shadow);z-index:2000;display:none;animation:slideIn .3s ease-out;max-width:320px
+    }
+    @keyframes slideIn{from{transform:translateX(110%);opacity:0}to{transform:none;opacity:1}}
+
+    .back-to-top{
+        position:fixed;bottom:24px;left:24px;width:46px;height:46px;border-radius:50%;background:var(--marrom-profundo);
+        color:#fff;border:none;cursor:pointer;box-shadow:var(--shadow-soft);z-index:900;display:none;
+        align-items:center;justify-content:center;font-size:1.1rem
+    }
+    .back-to-top.show{display:flex}
+
+    footer{
+        background:var(--marrom-profundo);color:var(--creme);padding:65px 2rem 30px;margin-top:50px;position:relative;overflow:hidden
+    }
+    footer:before{
+        content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:var(--laranja-queimado);
+        opacity:.1;top:-150px;left:10%
+    }
+    .footer-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:36px;position:relative;z-index:1;text-align:left}
+    .footer-logo{font-size:2rem;margin-bottom:10px;color:var(--amarelo-mostarda)}
+    .footer-grid p{opacity:.8;font-size:.9rem}
+    .footer-grid h4{font-size:.85rem;letter-spacing:.05em;color:var(--amarelo-mostarda);margin-bottom:14px}
+    .footer-grid ul{list-style:none;display:grid;gap:9px}
+    .footer-grid a{color:var(--creme);opacity:.82;text-decoration:none;font-size:.88rem}
+    .footer-grid a:hover{opacity:1;text-decoration:underline}
+    .footer-bottom{
+        max-width:1240px;margin:44px auto 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);
+        display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.8rem;opacity:.75;position:relative;z-index:1
+    }
+
+    @media(max-width:980px){
+        .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:920px){
+        .event-item{flex-wrap:wrap}.event-actions{flex-direction:row;width:100%;justify-content:flex-end}
+    }
+    @media(max-width:780px){
+        .hamburger{display:flex}
+        .nav-links{
+            position:absolute;top:100%;left:0;width:100%;flex-direction:column;background:var(--off-white);
+            padding:18px 1.2rem;gap:0;box-shadow:var(--shadow-soft);border-bottom:1px solid rgba(62,39,35,.08);
+            max-height:0;overflow:hidden;transition:max-height .35s ease
+        }
+        .nav-links.open{max-height:520px;padding:18px 1.2rem}
+        .nav-links li{width:100%}.nav-links a{display:block;padding:12px 4px;border-bottom:1px solid rgba(62,39,35,.06)}
+        .auth-buttons .btn{padding:8px 10px;font-size:.72rem}
+        .nav-tools{margin-left:auto}
+    }
+    @media(max-width:680px){
+        nav{padding:.8rem 1rem} main{padding-top:76px} section{padding:60px 1rem}
+        .hero{min-height:74vh;border-radius:24px;padding:2rem 1.2rem}.hero h1{font-size:3rem}
+        .stats-row{grid-template-columns:repeat(2,1fr)}
+        .grid-container{grid-template-columns:1fr}.form-group{grid-template-columns:1fr}
+        .footer-grid{grid-template-columns:1fr}
+        .newsletter-box{flex-direction:column;align-items:stretch}
+    }
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<a href="#home" class="skip-link">Pular para o conteúdo</a>
+
+<header id="header">
+    <nav>
+        <a href="#home" class="logo" onclick="showSection('home');closeMobileNav();return false;">ETÊMEROS</a>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="#home" onclick="showSection('home');closeMobileNav();return false;">Início</a></li>
+            <li><a href="#programacao" onclick="showSection('programacao');closeMobileNav();return false;">Programação</a></li>
+            <li><a href="#depoimentos" onclick="showSection('depoimentos');closeMobileNav();return false;">Depoimentos</a></li>
+            <li><a href="#faq" onclick="showSection('faq');closeMobileNav();return false;">FAQ</a></li>
+            <li><a href="#contato" onclick="showSection('contato');closeMobileNav();return false;">Contato</a></li>
+        </ul>
+        <div class="nav-tools">
+            <select id="theme-selector" class="theme-select" aria-label="Selecionar tema" onchange="changeTheme(this.value)">
+                <option value="base">✦ Etêmeros</option>
+                <option value="copa">⚽ Copa do Mundo</option>
+                <option value="setembro">💛 Setembro Amarelo</option>
+                <option value="junina">🎉 Festa Junina</option>
+            </select>
+            <div class="auth-buttons" id="auth-area">
+                <button class="btn btn-outline" onclick="login('user')">Entrar</button>
+                <button class="btn btn-primary" onclick="login('admin')">Acesso ADM</button>
+            </div>
+            <div id="user-area" class="hidden" style="align-items:center;gap:10px;">
+                <span id="user-label" style="font-weight:700;color:var(--terracota)"></span>
+                <button class="btn btn-delete btn-sm" onclick="logout()">Sair</button>
+            </div>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMobileNav()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <!-- Home -->
+    <section id="home" class="visible">
+        <div class="hero">
+            <div class="eyebrow">✦ Cultura & Arte · São Paulo</div>
+            <h1>Cultura que pulsa.</h1>
+            <p>Onde a arte efêmera encontra o impacto eterno. Conectando mentes criativas através de experiências sensoriais únicas.</p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" onclick="showSection('programacao')">Ver programação</button>
+                <button class="btn btn-outline" onclick="showSection('sobre')">Conhecer o coletivo</button>
+            </div>
+            <div class="stats-row">
+                <div class="stat"><strong>9</strong><span>anos de atuação</span></div>
+                <div class="stat"><strong>180+</strong><span>artistas apoiados</span></div>
+                <div class="stat"><strong>40</strong><span>eventos por ano</span></div>
+                <div class="stat"><strong>12</strong><span>bairros alcançados</span></div>
+            </div>
+        </div>
+
+        <div class="section-heading" style="margin-top:70px">
+            <div class="section-kicker">O que nos move</div>
+            <h2>Missão, visão e valores</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card">
+                <h3>Missão</h3>
+                <p>Democratizar a vanguarda artística e oferecer palcos para quem desafia o óbvio.</p>
+            </div>
+            <div class="card">
+                <h3>Visão</h3>
+                <p>Ser o epicentro da curadoria cultural urbana, transcendendo as barreiras entre o físico e o digital.</p>
+            </div>
+            <div class="card">
+                <h3>Valores</h3>
+                <p>Integridade estética, inovação sustentável e celebração absoluta da diversidade criativa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programação -->
+    <section id="programacao" class="hidden">
+        <div class="section-heading">
+            <div class="section-kicker">Agenda cultural</div>
+            <h2>Programação</h2>
+            <p>Explore os próximos encontros da nossa comunidade e filtre pelo que mais combina com você.</p>
+        </div>
+
+        <!-- Admin Panel Eventos -->
+        <div id="admin-events" class="hidden">
+            <div class="admin-box">
+                <h3>Publicar novo evento</h3>
+                <p class="sub">Preencha os campos abaixo para adicionar à agenda pública.</p>
+                <div class="form-group">
+                    <input type="text" id="ev-name" placeholder="Título do evento">
+                    <input type="text" id="ev-loc" placeholder="Localização">
+                    <input type="date" id="ev-date">
+                    <select id="ev-cat" class="dark-select">
+                        <option value="Exposição">Exposição</option>
+                        <option value="Show">Show</option>
+                        <option value="Debate">Debate</option>
+                        <option value="Oficina">Oficina</option>
+                        <option value="Feira">Feira</option>
+                        <option value="Arraiá">Arraiá</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="addEvent()" style="background: var(--amarelo-mostarda); color: var(--marrom-profundo)">Publicar</button>
+                </div>
+                <div class="form-group wide" style="margin-top:12px">
+                    <textarea id="ev-desc" rows="2" placeholder="Breve descrição do evento (opcional)"></textarea>
+                </div>
+                <div class="admin-meta" id="subscriber-count"></div>
+            </div>
+        </div>
+
+        <div class="filters">
+            <input type="text" class="search-input" id="ev-search" placeholder="Buscar por nome ou local..." oninput="onFilterChange()" aria-label="Buscar eventos">
+        </div>
+        <div class="filters" id="category-chips" role="group" aria-label="Filtrar por categoria"></div>
+        <label class="toggle-past">
+            <input type="checkbox" id="show-past" onchange="onFilterChange()"> Mostrar eventos que já aconteceram
+        </label>
+
+        <div id="calendar-list" style="margin-top:20px"></div>
+    </section>
+
+    <!-- Depoimentos -->
+    <section id="depoimentos" class="hidden">
+        <div class="section-heading">
+            <div class="section-kicker">Quem já passou por aqui</div>
+            <h2>Depoimentos</h2>
+        </div>
+        <div class="grid-container" id="testimonials-grid"></div>
+
+        <div class="section-heading" style="margin-top:60px">
+            <div class="section-kicker">Rede de apoio</div>
+            <h2>Parceiros e apoiadores</h2>
+        </div>
+        <div class="partners-row" id="partners-row"></div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="hidden">
+        <div class="section-heading">
+            <div class="section-kicker">Dúvidas frequentes</div>
+            <h2>Perguntas e respostas</h2>
+        </div>
+        <div id="faq-list" style="margin-top:30px"></div>
+
+        <div class="newsletter-box">
+            <div style="flex:1;min-width:220px">
+                <h3 style="margin-bottom:6px">Receba a agenda por e-mail</h3>
+                <p style="color:var(--muted);font-size:.88rem">Um resumo mensal com os próximos eventos, sem spam.</p>
+            </div>
+            <form id="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" id="newsletter-email" placeholder="seu@email.com" required aria-label="Seu e-mail">
+                <button type="submit" class="btn btn-primary">Inscrever-se</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="hidden">
+        <div class="section-heading">
+            <div class="section-kicker">Fale com a gente</div>
+            <h2>Conecte-se conosco</h2>
+        </div>
+        <div class="grid-container">
+            <div class="card contact-card">
+                <h3>Canais diretos</h3>
+                <p>✉️ ola@etemeroscultura.com.br</p>
+                <p>📞 (11) 98877-6655</p>
+                <p>📸 Instagram: @etemeros.espro</p>
+            </div>
+            <div class="card contact-card">
+                <h3>Sede criativa</h3>
+                <p>Rua das Palmeiras, 404</p>
+                <p>Vila Madalena, São Paulo - SP</p>
+                <p style="margin-top:8px">Ter–sáb, 10h às 19h</p>
+            </div>
+        </div>
+
+        <div class="section-heading" style="margin-top:60px">
+            <div class="section-kicker">Envie uma mensagem</div>
+            <h2>Escreva para nós</h2>
+        </div>
+        <form class="light-form" style="margin-top:24px" onsubmit="sendContact(event)">
+            <input type="text" id="ct-name" placeholder="Seu nome" required aria-label="Seu nome">
+            <input type="email" id="ct-email" placeholder="Seu e-mail" required aria-label="Seu e-mail">
+            <textarea id="ct-msg" rows="4" placeholder="Sua mensagem" required aria-label="Sua mensagem"></textarea>
+            <button type="submit" class="btn btn-primary" style="justify-self:start">Enviar mensagem</button>
+        </form>
+    </section>
+</main>
+
+<div id="toast" class="toast" role="status" aria-live="polite">Ação realizada com sucesso!</div>
+<button class="back-to-top" id="back-to-top" aria-label="Voltar ao topo" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo">ETÊMEROS</div>
+            <p>Coletivo cultural de São Paulo dedicado à arte efêmera, à curadoria independente e à democratização da cultura urbana.</p>
+        </div>
+        <div>
+            <h4>Navegação</h4>
+            <ul>
+                <li><a href="#home" onclick="showSection('home');return false;">Início</a></li>
+                <li><a href="#programacao" onclick="showSection('programacao');return false;">Programação</a></li>
+                <li><a href="#faq" onclick="showSection('faq');return false;">FAQ</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Comunidade</h4>
+            <ul>
+                <li><a href="#depoimentos" onclick="showSection('depoimentos');return false;">Depoimentos</a></li>
+                <li><a href="#faq" onclick="showSection('faq');return false;">Receber newsletter</a></li>
+                <li><a href="#contato" onclick="showSection('contato');return false;">Trabalhe conosco</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Contato</h4>
+            <ul>
+                <li><a href="mailto:ola@etemeroscultura.com.br">ola@etemeroscultura.com.br</a></li>
+                <li><a href="tel:+5511988776655">(11) 98877-6655</a></li>
+                <li><a href="#contato" onclick="showSection('contato');return false;">Vila Madalena, SP</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <span>© 2026 Etêmeros Cultura & Arte. Moldando o agora.</span>
+        <span>Feito com cuidado por quem acredita no efêmero.</span>
+    </div>
+</footer>
+
+<script>
+    let currentUserRole = null;
+    let activeCategory = 'Todos';
+
+    // --- Dados iniciais ---
+    let events = [];
+
+    const testimonials = [
+        { name: "Marina Alves", role: "Artista visual", quote: "Expor no Etêmeros mudou minha relação com meu próprio trabalho. Senti que existia um público de verdade me esperando." },
+        { name: "Diego Ferraz", role: "Frequentador", quote: "Fui numa oficina de serigrafia sem saber nada do assunto e saí de lá com uma camiseta e uma vontade enorme de voltar." },
+        { name: "Bianca Souza", role: "Educadora", quote: "As oficinas nas escolas abriram um espaço que os alunos não tinham antes para falar sobre arte e identidade." },
+        { name: "Rafael Nunes", role: "Produtor cultural parceiro", quote: "É raro achar um coletivo que consegue ser experimental e organizado ao mesmo tempo. O Etêmeros consegue." }
+    ];
+
+    const faqs = [
+        { q: "Preciso pagar para participar dos eventos?", a: "A maior parte da nossa programação é gratuita. Alguns festivais maiores cobram um ingresso simbólico para cobrir custos de estrutura, sempre informado com antecedência." },
+        { q: "Como posso propor uma exposição ou oficina?", a: "Envie uma mensagem pelo formulário de contato com uma breve descrição da proposta e um portfólio ou exemplos do seu trabalho. Nossa curadoria responde em até 15 dias." },
+        { q: "Os espaços são acessíveis?", a: "A Galeria Etêmeros conta com rampa de acesso e banheiro adaptado. Para eventos em outros locais, indicamos as condições de acessibilidade na própria divulgação." },
+        { q: "Posso ser voluntário ou apoiador?", a: "Sim! Recebemos voluntários para produção de eventos e também parcerias de apoio institucional. Fale com a gente pelo e-mail ou formulário de contato." },
+        { q: "Como acompanho os próximos eventos?", a: "Você pode conferir a seção Programação a qualquer momento, assinar nossa newsletter mensal ou seguir @etemeros.espro no Instagram." }
+    ];
+
+    const partners = ["Instituto Aurora", "Casa Verde Cultural", "Coletivo Rizoma", "Fundação Ipê", "Núcleo Semente", "Ateliê Comum"];
+
+    // --- Intersection Observer para animações de scroll ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+
+    function initObservers() {
+        document.querySelectorAll('section').forEach(section => observer.observe(section));
+    }
+
+    // --- Navegação ---
+    function showSection(id) {
+        document.querySelectorAll('main > section').forEach(s => {
+            s.classList.add('hidden'); s.classList.remove('visible');
+        });
+        const target = document.getElementById(id);
+        target.classList.remove('hidden');
+        setTimeout(() => {
+            target.classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 10);
+        updateActiveNav(id);
+    }
+
+    function toggleMobileNav() {
+        const links = document.getElementById('nav-links');
+        const btn = document.getElementById('hamburger');
+        const isOpen = links.classList.toggle('open');
+        btn.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', isOpen);
+    }
+    function closeMobileNav() {
+        document.getElementById('nav-links').classList.remove('open');
+        const btn = document.getElementById('hamburger');
+        btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false');
+    }
+
+    // --- Autenticação ---
+    function login(role) {
+        currentUserRole = role;
+        document.getElementById('auth-area').classList.add('hidden');
+        document.getElementById('user-area').classList.remove('hidden');
+        document.getElementById('user-area').style.display = 'flex';
+        document.getElementById('user-label').innerText = role === 'admin' ? "🛡️ SUPER ADM" : "👤 MEMBRO";
+        if (role === 'admin') document.getElementById('admin-events').classList.remove('hidden');
+        showToast(`Bem-vindo, ${role === 'admin' ? 'Administrador' : 'Membro'}!`);
+        renderEvents();
+        renderAdminMeta();
+    }
+
+    function logout() {
+        currentUserRole = null;
+        document.getElementById('auth-area').classList.remove('hidden');
+        document.getElementById('user-area').classList.add('hidden');
+        document.getElementById('admin-events').classList.add('hidden');
+        showToast("Logout realizado.");
+        renderEvents();
+    }
+
+    // --- Filtros ---
+    function renderCategoryChips() {
+        const cats = ['Todos', ...new Set(events.map(e => e.category))];
+        const wrap = document.getElementById('category-chips');
+        wrap.innerHTML = '';
+        cats.forEach(cat => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'chip' + (cat === activeCategory ? ' active' : '');
+            chip.innerText = cat;
+            chip.onclick = () => { activeCategory = cat; renderCategoryChips(); renderEvents(); };
+            wrap.appendChild(chip);
+        });
+    }
+    function onFilterChange() { renderEvents(); }
+
+    function daysUntil(dateStr) {
+        const today = new Date(); today.setHours(0,0,0,0);
+        const target = new Date(dateStr + "T00:00:00");
+        return Math.round((target - today) / 86400000);
+    }
+    function countdownLabel(diff) {
+        if (diff < 0) return "Evento encerrado";
+        if (diff === 0) return "É hoje!";
+        if (diff === 1) return "Falta 1 dia";
+        return `Faltam ${diff} dias`;
+    }
+
+    function googleCalendarLink(ev) {
+        const d = ev.date.replace(/-/g, '');
+        const text = encodeURIComponent(ev.name);
+        const details = encodeURIComponent(ev.description || '');
+        const loc = encodeURIComponent(ev.location);
+        return `https://www.google.com/calendar/render?action=TEMPLATE&text=${text}&dates=${d}/${d}&details=${details}&location=${loc}`;
+    }
+
+    function shareEvent(ev) {
+        const text = `${ev.name} — ${ev.location}, ${new Date(ev.date+"T12:00:00").toLocaleDateString('pt-BR')}`;
+        if (navigator.share) {
+            navigator.share({ title: ev.name, text }).catch(() => {});
+        } else if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => showToast("Detalhes copiados para a área de transferência."));
+        } else {
+            showToast(text);
+        }
+    }
+
+    // --- Gestão de eventos ---
+    function renderEvents() {
+        renderCategoryChips();
+        const list = document.getElementById('calendar-list');
+        const search = (document.getElementById('ev-search').value || '').toLowerCase();
+        const showPast = document.getElementById('show-past').checked;
+        list.innerHTML = "";
+
+        let filtered = events.filter(ev => {
+            const diff = daysUntil(ev.date);
+            if (!showPast && diff < 0) return false;
+            if (activeCategory !== 'Todos' && ev.category !== activeCategory) return false;
+            if (search) {
+                const haystack = (ev.name + ' ' + ev.location + ' ' + (ev.description||'')).toLowerCase();
+                if (!haystack.includes(search)) return false;
+            }
+            return true;
+        }).sort((a, b) => new Date(a.date) - new Date(b.date));
+
+        if (filtered.length === 0) {
+            list.innerHTML = `<div class="empty-state"><h3 style="margin-bottom:8px">Nenhum evento encontrado</h3><p>Tente outra categoria, termo de busca ou habilite eventos passados.</p></div>`;
+            return;
+        }
+
+        filtered.forEach(ev => {
+            const dateObj = new Date(ev.date + "T12:00:00");
+            const formattedDate = dateObj.toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+            const diff = daysUntil(ev.date);
+
+            const div = document.createElement('div');
+            div.className = 'event-item' + (diff < 0 ? ' past' : '');
+            div.innerHTML = `
+                <div class="event-main">
+                    <div class="event-info">
+                        <span class="event-badge">${ev.category}</span>
+                        <h4>${ev.name}</h4>
+                        <span>📅 ${formattedDate} · 📍 ${ev.location}</span>
+                        ${ev.description ? `<div class="event-desc">${ev.description}</div>` : ''}
+                        <div class="event-countdown">${countdownLabel(diff)}</div>
+                    </div>
+                </div>
+                <div class="event-actions"></div>
+            `;
+
+            const actions = div.querySelector('.event-actions');
+            if (diff >= 0) {
+                const calBtn = document.createElement('a');
+                calBtn.className = 'btn btn-outline btn-sm';
+                calBtn.href = googleCalendarLink(ev);
+                calBtn.target = '_blank'; calBtn.rel = 'noopener';
+                calBtn.innerText = 'Adicionar à agenda';
+                actions.appendChild(calBtn);
+            }
+            const shareBtn = document.createElement('button');
+            shareBtn.className = 'btn btn-outline btn-sm';
+            shareBtn.innerText = 'Compartilhar';
+            shareBtn.onclick = () => shareEvent(ev);
+            actions.appendChild(shareBtn);
+
+            if (currentUserRole === 'admin') {
+                const delBtn = document.createElement('button');
+                delBtn.className = 'btn btn-delete btn-sm';
+                delBtn.innerText = 'Excluir';
+                delBtn.onclick = () => removeEvent(ev.id);
+                actions.appendChild(delBtn);
+            }
+            list.appendChild(div);
+        });
+    }
+
+    function addEvent() {
+        const name = document.getElementById('ev-name').value.trim();
+        const location = document.getElementById('ev-loc').value.trim();
+        const date = document.getElementById('ev-date').value;
+        const category = document.getElementById('ev-cat').value;
+        const description = document.getElementById('ev-desc').value.trim();
+
+        if (name && date && location) {
+            events.push({ id: Date.now(), name, date, location, category, description });
+            renderEvents();
+            showToast("Evento publicado!");
+            document.getElementById('ev-name').value = "";
+            document.getElementById('ev-loc').value = "";
+            document.getElementById('ev-date').value = "";
+            document.getElementById('ev-desc').value = "";
+        } else {
+            showToast("Erro: preencha nome, local e data.");
+        }
+    }
+
+    function removeEvent(id) {
+        if (confirm(`Remover evento permanentemente?`)) {
+            events = events.filter(ev => ev.id !== id);
+            renderEvents();
+            showToast("Evento removido.");
+        }
+    }
+
+    function renderAdminMeta() {
+        if (currentUserRole !== 'admin') return;
+        const subs = JSON.parse(localStorage.getItem('etemeros-subscribers') || '[]');
+        document.getElementById('subscriber-count').innerText = `${subs.length} inscrito(s) na newsletter.`;
+    }
+
+    // --- Depoimentos / parceiros ---
+    function renderTestimonials() {
+        const grid = document.getElementById('testimonials-grid');
+        grid.innerHTML = '';
+        testimonials.forEach(t => {
+            const initials = t.name.split(' ').map(n => n[0]).slice(0,2).join('');
+            const div = document.createElement('div');
+            div.className = 'testi-card';
+            div.innerHTML = `
+                <p>"${t.quote}"</p>
+                <div class="testi-who">
+                    <div class="testi-avatar">${initials}</div>
+                    <div><strong>${t.name}</strong><span>${t.role}</span></div>
+                </div>`;
+            grid.appendChild(div);
+        });
+    }
+    function renderPartners() {
+        const row = document.getElementById('partners-row');
+        row.innerHTML = '';
+        partners.forEach(p => {
+            const span = document.createElement('span');
+            span.className = 'partner-pill';
+            span.innerText = p;
+            row.appendChild(span);
+        });
+    }
+
+    // --- FAQ ---
+    function renderFaq() {
+        const list = document.getElementById('faq-list');
+        list.innerHTML = '';
+        faqs.forEach(f => {
+            const details = document.createElement('details');
+            details.className = 'faq-item';
+            details.innerHTML = `<summary>${f.q}</summary><div class="faq-a">${f.a}</div>`;
+            list.appendChild(details);
+        });
+    }
+
+    // --- Newsletter e contato ---
+    function subscribeNewsletter(e) {
+        e.preventDefault();
+        const email = document.getElementById('newsletter-email').value.trim();
+        if (!email) return;
+        const subs = JSON.parse(localStorage.getItem('etemeros-subscribers') || '[]');
+        if (!subs.includes(email)) subs.push(email);
+        localStorage.setItem('etemeros-subscribers', JSON.stringify(subs));
+        showToast("Inscrição confirmada! Você receberá nossa próxima agenda.");
+        document.getElementById('newsletter-form').reset();
+        renderAdminMeta();
+    }
+
+    function sendContact(e) {
+        e.preventDefault();
+        showToast("Mensagem enviada! Responderemos em breve.");
+        e.target.reset();
+    }
+
+    // --- Temas ---
+    const themeNames = { base: "Etêmeros", copa: "Copa do Mundo", setembro: "Setembro Amarelo", junina: "Festa Junina" };
+    function changeTheme(theme) {
+        document.body.classList.remove('theme-copa', 'theme-setembro', 'theme-junina');
+        if (theme !== 'base') document.body.classList.add('theme-' + theme);
+        localStorage.setItem('etemeros-theme', theme);
+        showToast('Tema ' + themeNames[theme] + ' ativado.');
+    }
+
+    function updateActiveNav(id) {
+        document.querySelectorAll('.nav-links a').forEach(a => {
+            a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+    }
+
+    function showToast(msg) {
+        const toast = document.getElementById('toast');
+        toast.innerText = msg;
+        toast.style.display = 'block';
+        clearTimeout(window._toastTimer);
+        window._toastTimer = setTimeout(() => { toast.style.display = 'none'; }, 3200);
+    }
+
+    window.addEventListener('scroll', () => {
+        const header = document.getElementById('header');
+        header.classList.toggle('scrolled', window.scrollY > 30);
+        document.getElementById('back-to-top').classList.toggle('show', window.scrollY > 500);
+    });
+
+    window.onload = () => {
+        const savedTheme = localStorage.getItem('etemeros-theme') || 'base';
+        const selector = document.getElementById('theme-selector');
+        if (selector) selector.value = savedTheme;
+        if (savedTheme !== 'base') document.body.classList.add('theme-' + savedTheme);
+        initObservers();
+        renderEvents();
+        renderTestimonials();
+        renderPartners();
+        renderFaq();
+        updateActiveNav('home');
+    };
+</script>
+
+</body>
+</html>
